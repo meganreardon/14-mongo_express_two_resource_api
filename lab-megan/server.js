@@ -7,6 +7,10 @@ const cors = require('cors');
 const Promise = require('bluebird');
 const debug = require('debug')('episode:server');
 
+const tvshowRouter = require('./route/tvshow-route.js');
+const episodeRouter = require('./route/episode-route.js');
+const errors = require('./lib/error-middleware.js');
+
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/episode';
 
@@ -16,6 +20,10 @@ mongoose.connect(MONGODB_URI);
 const app  = express();
 app.use(cors());
 app.use(morgan('dev'));
+
+app.use(episodeRouter);
+app.use(tvshowRouter);
+app.use(errors);
 
 app.listen(PORT, () => {
   debug(`server up at: ${PORT}`);
