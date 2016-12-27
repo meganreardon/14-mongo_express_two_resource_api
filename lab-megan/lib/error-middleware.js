@@ -1,7 +1,7 @@
 'use strict';
 
 const createError = require('http-errors');
-const debug = require('debug')('episodes:error-midddleware');
+const debug = require('debug')('episode:error-midddleware');
 
 module.exports = function(err, req, res, next) {
   debug('error middleware');
@@ -10,7 +10,7 @@ module.exports = function(err, req, res, next) {
   console.err('name:', err.name);
 
   if(err.status) {
-    
+
     res.status(err.status).send(err.name);
     next();
     return;

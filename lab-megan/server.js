@@ -5,10 +5,10 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Promise = require('bluebird');
-const debug = require('debug')('episodes:server');
+const debug = require('debug')('episode:server');
 
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/episodes';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/episode';
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);

@@ -7,8 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "DEBUG='episodes*' mocha",
-    "start": "DEBUG='episodes*' node server.js"
+    "test": "DEBUG='episode*' mocha",
+    "start": "DEBUG='episode*' node server.js"
   },
   "keywords": [],
   "author": "",
