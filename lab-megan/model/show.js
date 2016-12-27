@@ -2,33 +2,33 @@
 
 const mongoose = require('mongoose');
 const createError = require('http-errors');
-const debug = require('debug')('episode:tvshow');
+const debug = require('debug')('episode:show');
 const Schema = mongoose.Schema;
 
 const Episode = require('./episode.js');
 
-const tvshowSchema = Schema({
+const showSchema = Schema({
   title: { type: String, required: true },
   startDate: { type: Date, required: true },
   episodes: [{ type: Schema.Types.ObjectId, ref: 'episode' }]
 });
 
-const Tvshow = module.exports = mongoose.model('tvshow', tvshowSchema);
+const Show = module.exports = mongoose.model('show', showSchema);
 
-Tvshow.findByIdAndAddEpisode = function(id, episode) {
+Show.findByIdAndAddEpisode = function(id, episode) {
   debug('findByIdAndAddEpisode');
 
-  return Tvshow.findById(id)
+  return Show.findById(id)
   .catch( err => Promise.reject(createError(404, err.message)))
-  .then( tvshow => {
-    episode.tvshowID = tvshow._id;
-    this.tempTvshow = tvshow;
+  .then( show => {
+    episode.showID = show._id;
+    this.tempShow = show;
     return new Episode(episode).save();
   })
   .then( episode => {
-    this.tempTvshow.episodes.push(episode._id);
+    this.tempShow.episodes.push(episode._id);
     this.tempEpisode = episode;
-    return this.tempTvshow.save();
+    return this.tempShow.save();
   })
   .then ( () => {
     return this.tempEpisode;

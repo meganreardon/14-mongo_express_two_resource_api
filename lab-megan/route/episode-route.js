@@ -2,12 +2,12 @@
 
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
-const Tvshow = require('../model/tvshow.js');
+const Show = require('../model/show.js');
 
 const episodeRouter = module.exports = new Router();
 
-episodeRouter.post('/api/tvshow/:tvshowID/episode', jsonParser, function(req, res, next) {
-  Tvshow.findByIdAndAddEpisode(req.params.tvshowID, req.body)
-  .then( tvshow => res.json(episode))
+episodeRouter.post('/api/show/:showID/episode', jsonParser, function(req, res, next) {
+  Show.findByIdAndAddEpisode(req.params.showID, req.body)
+  .then( show => res.json(episode))
   .catch(next);
 });

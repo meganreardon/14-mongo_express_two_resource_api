@@ -7,7 +7,7 @@ const cors = require('cors');
 const Promise = require('bluebird');
 const debug = require('debug')('episode:server');
 
-const tvshowRouter = require('./route/tvshow-route.js');
+const showRouter = require('./route/show-route.js');
 const episodeRouter = require('./route/episode-route.js');
 const errors = require('./lib/error-middleware.js');
 
@@ -22,7 +22,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use(episodeRouter);
-app.use(tvshowRouter);
+app.use(showRouter);
 app.use(errors);
 
 app.listen(PORT, () => {
