@@ -17,6 +17,7 @@ module.exports = function(err, req, res, next) {
   }
 
   if (err.name === 'ValidationError') {
+    console.log('::: ERROR MIDDLEWARE page inside the validation error block');
     err = createError(400, err.message);
     res.status(err.status).send(err.name);
     next();

@@ -8,7 +8,9 @@ const Show = require('../model/show.js');
 const showRouter = module.exports = new Router();
 
 showRouter.post('/api/show', jsonParser, function(req, res, next) {
-  // req.body.timestamp = new Date(); // don't need this
+  // req.body.startDate = new Date(); // don't need this
+  console.log('::: show-route.js page inside POST router function');
+  console.log('::: show-route.js page req.body is:', req.body);
   new Show(req.body).save()
   .then( show => res.json(show))
   .catch(next);

@@ -44,9 +44,15 @@ describe('Show Routes', function() {
         request.post(`${url}/api/show`)
         .send(exampleShow)
         .end((err, res) => {
+          console.log('::: show-route-test.js POST test before error');
+          console.log('::: res.status is:', res.status);
+          console.log('::: res.body.name is:', res.body.name);
+          console.log('::: res.body is:', res.body);
           if (err) return done(err);
+          console.log('::: show-route-test.js POST test after error');
           expect (res.status).to.equal(200);
-          expect (res.body.name).to.equal('test show');
+          console.log('::: have reached past first expect');
+          expect (res.body.name).to.equal('example show');
           this.tempShow = res.body;
           done();
         });
@@ -86,11 +92,11 @@ describe('Show Routes', function() {
       });
 
       it('should return a show', done => {
-        request.get(`${url}/api/list/${this.tempShow._id}`)
+        request.get(`${url}/api/show/${this.tempShow._id}`)
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).to.equal(200);
-          expect(res.body.name).to.equal('test show');
+          expect(res.body.name).to.equal('example show');
           expect(res.body.episodes.length).to.equal(1);
           expect(res.body.notes[0].name).to.equal(exampleEpisode.name);
           done();
