@@ -8,8 +8,8 @@ const Schema = mongoose.Schema;
 const Episode = require('./episode.js');
 
 const showSchema = Schema({
-  title: { type: String, required: true },
-  startDate: { type: Date, required: true },
+  name: { type: String, required: true },
+  startDate: { type: String, required: true },
   episodes: [{ type: Schema.Types.ObjectId, ref: 'episode' }]
 });
 

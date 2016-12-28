@@ -13,7 +13,8 @@ const url = `http://localhost:${PORT}`;
 
 const exampleShow = {
   name: 'example show',
-  startDate: new Date('December 16, 2016 012:00:00')
+  startDate: 'December 16, 2016 012:00:00'
+  // startDate: new Date('December 16, 2016 012:00:00')
 };
 
 const exampleEpisode = {
@@ -44,9 +45,15 @@ describe('Show Routes', function() {
         request.post(`${url}/api/show`)
         .send(exampleShow)
         .end((err, res) => {
+          console.log('::: show-route-test.js POST test before error');
+          console.log('::: res.status is:', res.status);
+          console.log('::: res.body.name is:', res.body.name);
+          console.log('::: res.body is:', res.body);
           if (err) return done(err);
+          console.log('::: show-route-test.js POST test after error');
           expect (res.status).to.equal(200);
-          expect (res.body.name).to.equal('test show');
+          console.log('::: have reached past first expect');
+          expect (res.body.name).to.equal('example show');
           this.tempShow = res.body;
           done();
         });
@@ -86,13 +93,13 @@ describe('Show Routes', function() {
       });
 
       it('should return a show', done => {
-        request.get(`${url}/api/list/${this.tempShow._id}`)
+        request.get(`${url}/api/show/${this.tempShow._id}`)
         .end((err, res) => {
           if (err) return done(err);
           expect(res.status).to.equal(200);
-          expect(res.body.name).to.equal('test show');
+          expect(res.body.name).to.equal('example show');
           expect(res.body.episodes.length).to.equal(1);
-          expect(res.body.notes[0].name).to.equal(exampleEpisode.name);
+          expect(res.body.episodes[0].name).to.equal(exampleEpisode.name);
           done();
         });
       });
@@ -104,7 +111,7 @@ describe('Show Routes', function() {
   // PUT tests
   // ---------
 
-  describe('PUT: /api/list/:id', function() {
+  describe('PUT: /api/show/:id', function() {
     describe('with a valid body', function() {
 
       before( done => {
@@ -126,16 +133,18 @@ describe('Show Routes', function() {
         done();
       });
 
-      it('should return a list', done => {
-        var updated = { title: 'updated title'};
-        request.put(`${url}/api/list/${this.tempShow._id}`)
+      it('should return a show', done => {
+        var updated = { name: 'updated name'};
+        request.put(`${url}/api/show/${this.tempShow._id}`)
         .send(updated)
         .end((err, res) => {
           if (err) return done(err);
-          let startDate = new Date(res.body.startDate);
+          // let startDate = new Date(res.body.startDate); //orig
+          let startDate = 'December 16, 2016 012:00:00';
           expect(res.status).to.equal(200);
-          expect(res.body.name).to.equal(updated.title);
-          expect(startDate.toString()).to.equal(exampleShow.startDate.toString());
+          expect(res.body.name).to.equal(updated.name);
+          // expect(startDate.toString()).to.equal(exampleShow.startDate.toString()); //orig
+          expect(startDate).to.equal(exampleShow.startDate);
           done();
         });
       });

@@ -18,7 +18,8 @@ const exampleEpisode = {
 
 const exampleShow = {
   name: 'example show',
-  startDate: new Date('December 16, 2016 012:00:00')
+  // startDate: new Date('December 16, 2016 012:00:00')
+  startDate: 'December 16, 2016 012:00:00'
 };
 
 describe('Episode Routes', function() {
@@ -28,7 +29,7 @@ describe('Episode Routes', function() {
   // ----------
 
   describe('POST: /api/show/:showID/episode', function() {
-    describe('with a valid show and body', () => {
+    describe('with a valid show and episode body', () => {
 
       before( done => {
         new Show(exampleShow).save()
