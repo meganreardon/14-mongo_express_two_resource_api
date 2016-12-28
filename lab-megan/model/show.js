@@ -9,7 +9,7 @@ const Episode = require('./episode.js');
 
 const showSchema = Schema({
   name: { type: String, required: true },
-  startDate: { type: String, required: true },
+  startDate: { type: Date, required: true },
   episodes: [{ type: Schema.Types.ObjectId, ref: 'episode' }]
 });
 

@@ -18,8 +18,8 @@ const exampleEpisode = {
 
 const exampleShow = {
   name: 'example show',
-  // startDate: new Date('December 16, 2016 012:00:00')
-  startDate: 'December 16, 2016 012:00:00'
+  startDate: new Date('December 16, 2016 012:00:00')
+  // startDate: 'December 16, 2016 012:00:00'
 };
 
 describe('Episode Routes', function() {
