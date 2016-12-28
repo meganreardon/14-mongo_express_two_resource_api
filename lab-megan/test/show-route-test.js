@@ -3,7 +3,6 @@
 const expect = require('chai').expect;
 const request = require('superagent');
 const Show = require('../model/show.js');
-// const Episode = require('../model/episode.js');
 
 const PORT = process.env.PORT || 3000;
 
@@ -136,6 +135,45 @@ describe('Show Routes', function() {
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal(updated.name);
           expect(startDate.toString()).to.equal(exampleShow.startDate.toString());
+          done();
+        });
+      });
+
+    });
+  });
+
+  // ------------
+  // DELETE tests
+  // ------------
+
+  describe('DELETE: /api/show/:id', function() {
+    describe('with a valid body', function() {
+
+      before( done => {
+        new Show(exampleShow).save()
+        .then( show => {
+          this.tempShow = show;
+          done();
+        })
+        .catch(done);
+      });
+
+      after( done => {
+        if (this.tempShow) {
+          Show.remove({})
+          .then( () => done())
+          .catch(done);
+          return;
+        }
+        done();
+      });
+
+      it('should delete a show', done => {
+        request.delete(`${url}/api/show/${this.tempShow._id}`)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.status).to.equal(204);
+          expect(res.body).to.be.empty;
           done();
         });
       });
