@@ -123,18 +123,18 @@ describe('Show Routes', function() {
         .catch(done);
       });
 
-      // after( done => {
-      //   if (this.tempShow) {
-      //     Show.remove({})
-      //     .then ( () => done())
-      //     .catch(done);
-      //     return;
-      //   }
-      //   done();
-      // });
+      after( done => {
+        if (this.tempShow) {
+          Show.remove({})
+          .then ( () => done())
+          .catch(done);
+          return;
+        }
+        done();
+      });
 
       it('should return a show', done => {
-        var updated = { title: 'updated title'};
+        var updated = { name: 'updated name'};
         request.put(`${url}/api/show/${this.tempShow._id}`)
         .send(updated)
         .end((err, res) => {
@@ -142,7 +142,7 @@ describe('Show Routes', function() {
           // let startDate = new Date(res.body.startDate); //orig
           let startDate = 'December 16, 2016 012:00:00';
           expect(res.status).to.equal(200);
-          expect(res.body.name).to.equal(updated.title);
+          expect(res.body.name).to.equal(updated.name);
           // expect(startDate.toString()).to.equal(exampleShow.startDate.toString()); //orig
           expect(startDate).to.equal(exampleShow.startDate);
           done();
