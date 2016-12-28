@@ -24,7 +24,7 @@ showRouter.get('/api/show/:id', function(req, res, next) {
 });
 
 showRouter.put('/api/show/:id', jsonParser, function(req, res, next) {
-  Show.findByIdAndUpdate(req.params.id, req.body, {new:true})
+  Show.findByIdAndUpdate(req.params.id, req.body, { new: true })
   .then( show => res.json(show))
   .catch( err => {
     if(err.name === 'ValidationError') return next(err);

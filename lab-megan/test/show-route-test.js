@@ -13,7 +13,8 @@ const url = `http://localhost:${PORT}`;
 
 const exampleShow = {
   name: 'example show',
-  startDate: new Date('December 16, 2016 012:00:00')
+  startDate: 'December 16, 2016 012:00:00'
+  // startDate: new Date('December 16, 2016 012:00:00')
 };
 
 const exampleEpisode = {
@@ -98,7 +99,7 @@ describe('Show Routes', function() {
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal('example show');
           expect(res.body.episodes.length).to.equal(1);
-          expect(res.body.notes[0].name).to.equal(exampleEpisode.name);
+          expect(res.body.episodes[0].name).to.equal(exampleEpisode.name);
           done();
         });
       });
@@ -110,7 +111,7 @@ describe('Show Routes', function() {
   // PUT tests
   // ---------
 
-  describe('PUT: /api/list/:id', function() {
+  describe('PUT: /api/show/:id', function() {
     describe('with a valid body', function() {
 
       before( done => {
@@ -122,15 +123,15 @@ describe('Show Routes', function() {
         .catch(done);
       });
 
-      after( done => {
-        if (this.tempShow) {
-          Show.remove({})
-          .then ( () => done())
-          .catch(done);
-          return;
-        }
-        done();
-      });
+      // after( done => {
+      //   if (this.tempShow) {
+      //     Show.remove({})
+      //     .then ( () => done())
+      //     .catch(done);
+      //     return;
+      //   }
+      //   done();
+      // });
 
       it('should return a show', done => {
         var updated = { title: 'updated title'};
@@ -138,10 +139,12 @@ describe('Show Routes', function() {
         .send(updated)
         .end((err, res) => {
           if (err) return done(err);
-          let startDate = new Date(res.body.startDate);
+          // let startDate = new Date(res.body.startDate); //orig
+          let startDate = 'December 16, 2016 012:00:00';
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal(updated.title);
-          expect(startDate.toString()).to.equal(exampleShow.startDate.toString());
+          // expect(startDate.toString()).to.equal(exampleShow.startDate.toString()); //orig
+          expect(startDate).to.equal(exampleShow.startDate);
           done();
         });
       });
