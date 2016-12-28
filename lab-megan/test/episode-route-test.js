@@ -28,7 +28,7 @@ describe('Episode Routes', function() {
   // ----------
 
   describe('POST: /api/show/:showID/episode', function() {
-    describe('with a valid show and body', () => {
+    describe('with a valid show and episode body', () => {
 
       before( done => {
         new Show(exampleShow).save()

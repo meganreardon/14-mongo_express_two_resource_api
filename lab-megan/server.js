@@ -21,8 +21,8 @@ const app  = express();
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use(episodeRouter);
 app.use(showRouter);
+app.use(episodeRouter);
 app.use(errors);
 
 app.listen(PORT, () => {

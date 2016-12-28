@@ -6,8 +6,8 @@ const debug = require('debug')('episode:error-midddleware');
 module.exports = function(err, req, res, next) {
   debug('error middleware');
 
-  console.error('msg', err.message);
-  console.err('name:', err.name);
+  console.error('msg:', err.message);
+  console.error('name:', err.name);
 
   if(err.status) {
 

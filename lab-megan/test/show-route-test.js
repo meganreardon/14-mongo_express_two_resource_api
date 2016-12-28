@@ -126,9 +126,9 @@ describe('Show Routes', function() {
         done();
       });
 
-      it('should return a list', done => {
+      it('should return a show', done => {
         var updated = { title: 'updated title'};
-        request.put(`${url}/api/list/${this.tempShow._id}`)
+        request.put(`${url}/api/show/${this.tempShow._id}`)
         .send(updated)
         .end((err, res) => {
           if (err) return done(err);

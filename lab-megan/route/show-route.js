@@ -10,7 +10,7 @@ const showRouter = module.exports = new Router();
 showRouter.post('/api/show', jsonParser, function(req, res, next) {
   // req.body.timestamp = new Date(); // don't need this
   new Show(req.body).save()
-  .then( show = res.json(show))
+  .then( show => res.json(show))
   .catch(next);
 });
 
@@ -18,7 +18,7 @@ showRouter.get('/api/show/:id', function(req, res, next) {
   Show.findById(req.params.id)
   .populate('episodes')
   .then( show => res.json(show))
-  .catch( err => next(createError(4040, err.message)));
+  .catch( err => next(createError(404, err.message)));
 });
 
 showRouter.put('/api/show/:id', jsonParser, function(req, res, next) {
