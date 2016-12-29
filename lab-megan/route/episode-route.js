@@ -2,10 +2,11 @@
 
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
+const createError = require('http-errors');
 const debug = require('debug')('episode:episode-router');
+
 const Show = require('../model/show.js');
 const Episode = require('../model/episode.js');
-
 const episodeRouter = module.exports = new Router();
 
 episodeRouter.post('/api/show/:showID/episode', jsonParser, function(req, res, next) {
@@ -16,6 +17,23 @@ episodeRouter.post('/api/show/:showID/episode', jsonParser, function(req, res, n
   .catch(next);
 });
 
+
+episodeRouter.get('/api/episode/:id', function (req, res, next) {
+  debug('GET: /API/episode/:id');
+
+  Episode.findById(req.params.id)
+  .then( episode => res.json(episode))
+  .catch( err => next(createError(404, err.message)));
+});
+
+// below is sample code
+// assignmentRouter.get('/api/assignment/:id', (request, response, next) => {
+//   debug('Assignment router GET: /api/assignment/:id');
+//
+//   Assignment.findById(request.params.id)
+//   .then(assignment => response.json(assignment))
+//   .catch(err => next(createError(404, err.message)));
+// });
 
 // below were my original trys
 // episodeRouter.get('/api/show/:showID/episode', function(req, res, next) {

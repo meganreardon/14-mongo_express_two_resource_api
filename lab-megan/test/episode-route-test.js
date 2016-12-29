@@ -68,36 +68,51 @@ describe('Episode Routes', function() {
   // ---------
 
   // below is my original try
-  // describe('GET: /api/show/:showID/episode', function() {
-  //   describe('with a valid show and episode body', () => {
-  //
-  //     before( done => {
-  //       new Show(exampleShow).save()
-  //       .then( show => {
-  //         this.tempShow = show;
-  //         return Show.findByIdAndAddEpisode(show._id, exampleEpisode);
-  //       })
-  //       .then( episode => {
-  //         this.tempEpisode = episode;
-  //         // console.log('\n\n');
-  //         // console.log('::: inside episode GET test');
-  //         // console.log('::: this.tempShow is:', this.tempShow);
-  //         // console.log('::: this.tempEpisode is:', this.tempEpisode);
-  //         // console.log('\n\n');
-  //         done();
-  //       })
-  //       .catch(done);
-  //     });
-  //
-  //     after( done => {
-  //       if (this.tempShow) {
-  //         Show.remove({})
-  //         .then( () => done())
-  //         .catch(done);
-  //         return;
-  //       }
-  //       done();
-  //     });
+  describe('GET: /api/show/:showID/episode', function() {
+    describe('with a valid show and episode body', () => {
+
+      before( done => {
+        new Show(exampleShow).save()
+        .then( show => {
+          this.tempShow = show;
+          return Show.findByIdAndAddEpisode(show._id, exampleEpisode);
+        })
+        .then( episode => {
+          this.tempEpisode = episode;
+          // console.log('\n\n');
+          // console.log('::: inside episode GET test');
+          // console.log('::: this.tempShow is:', this.tempShow);
+          // console.log('::: this.tempEpisode is:', this.tempEpisode);
+          // console.log('\n\n');
+          done();
+        })
+        .catch(done);
+      });
+
+      after( done => {
+        if (this.tempShow) {
+          Show.remove({})
+          .then( () => done())
+          .catch(done);
+          return;
+        }
+        done();
+      });
+
+      it('should return an epiosde', done => {
+        request.get(`${url}/api/episode/${this.tempEpisode.id}`)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.body.title).to.equal(exampleEpisode.title);
+          // console.log('::: res.body is:', res.body);
+          expect(res.body._id).to.equal(this.tempEpisode._id.toString());
+          done();
+        });
+      });
+
+    });
+  });
+
   //
   //     it('should return an episode', done => {
   //       request.get(`${url}/api/show/${this.tempShow.id}/episode`)
