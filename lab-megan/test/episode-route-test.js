@@ -70,24 +70,6 @@ describe('Episode Routes', function() {
   describe('GET: /api/show/:showID/episode', function() {
     describe('with a valid show and episode body', () => {
 
-      // before( done => {
-      //   new Show(exampleShow).save()
-      //   .then( show => {
-      //     this.tempShow = show;
-      //     done();
-      //   })
-      //   .catch(done);
-      // });
-      //
-      // after( done => {
-      //   Promise.all([
-      //     Show.remove({}),
-      //     Episode.remove({})
-      //   ])
-      //   .then( () => done())
-      //   .catch(done);
-      // });
-
       before( done => {
         new Show(exampleShow).save()
         .then( show => {
@@ -117,9 +99,11 @@ describe('Episode Routes', function() {
         .end((err, res) => {
           if (err) return done(err);
           // NOTE: keep logs below for question to TA
+          // console.log('\n\n');
           // console.log('::: res.body is: ', res.body);
           // console.log('::: res.body.episodes', res.body.episodes);
           // console.log('::: res.body.episodes[0]', res.body.episodes[0]);
+          // console.log('\n\n');
           expect(res.body.name).to.equal(exampleShow.name);
           // NOTE: keep logs below for question to TA
           // console.log('::: res.body is:', res.body);
@@ -128,6 +112,17 @@ describe('Episode Routes', function() {
           // console.log('::: this.tempShow._id is:', this.tempShow._id);
           // expect(res.body.showID).to.equal(this.tempShow._id.toString()); // orig from demo
           expect(res.body._id).to.equal(this.tempShow._id.toString());
+          // console.log('\n\n');
+          // console.log('::: this.tempEpisode is:', this.tempEpisode, '\n\n');
+          // console.log('::: this.tempEpisode._id is:', this.tempEpisode._id);
+          // console.log('::: exampleEpisode._id is:', exampleEpisode._id);
+          // console.log('::: exampleEpisode is:', exampleEpisode);
+          // console.log('\n\n');
+          // console.log('\n\n');
+          // console.log('::: res.body.episodes[0] is:', res.body.episodes[0]);
+          // console.log('::: this.tempEpisode._id is:', this.tempEpisode._id);
+          // console.log('\n\n');
+          expect(res.body.episodes[0]).to.equal(this.tempEpisode._id.toString());
           done();
         });
       });
