@@ -20,35 +20,35 @@ Connect to our server in the first terminal window:
 ```
 Note: If your server runs on a different port number than used in the examples below please use that port number instead.
 
-- To add a new show to the database:
+##### - To add a new show to the database:
 ```
   http POST localhost:3000/api/show name="Show Name" startDate="new Date('December 16, 2016 012:00:00')"
 ```
-- To add a new episode to the database:
+##### - To add a new episode to the database:
 ```
   http POST localhost:3000/api/show/knownShowID/episode title="Episode Title" director="Director Name"
 ```
-- To check the record of a show:
+##### - To check the record of a show:
 ```
   http GET localhost:3000/api/show/knownShowID
 ```
-- To check the record of an episode:
+##### - To check the record of an episode:
 ```
   http GET localhost:3000/api/episode/knownEpisodeID
 ```
-- To edit or update a show:
+##### - To edit or update a show:
 ```
   http PUT localhost:3000/api/show/knownShowID name="Updated Show Name" startDate="new Date('December 18, 2016 012:00:00')"
 ```
-- To edit or update an episode:
+##### - To edit or update an episode:
 ```
   http PUT localhost:3000/api/episode/knownEpisodeID title="Updated Episode Title" director="Updated Director Name"
 ```
-- To delete a show:
+##### - To delete a show:
 ```
   http DELETE localhost:3000/api/show/knownShowID
 ```
-- To delete an episode:
+##### - To delete an episode:
 ```
   http DELETE localhost:3000/api/episode/knownEpisodeID
 ```
