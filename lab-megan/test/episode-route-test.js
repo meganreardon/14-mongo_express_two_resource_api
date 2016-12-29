@@ -22,7 +22,7 @@ const exampleShow = {
   // startDate: 'December 16, 2016 012:00:00'
 };
 
-describe('Episode Routes', function() {
+describe('EPISODE ROUTES', function() {
 
   // ----------
   // POST tests
@@ -67,8 +67,7 @@ describe('Episode Routes', function() {
   // GET tests
   // ---------
 
-  // below is my original try
-  describe('GET: /api/show/:showID/episode', function() {
+  describe('GET: /api/episode/:id', function() {
     describe('with a valid show and episode body', () => {
 
       before( done => {
@@ -79,11 +78,6 @@ describe('Episode Routes', function() {
         })
         .then( episode => {
           this.tempEpisode = episode;
-          // console.log('\n\n');
-          // console.log('::: inside episode GET test');
-          // console.log('::: this.tempShow is:', this.tempShow);
-          // console.log('::: this.tempEpisode is:', this.tempEpisode);
-          // console.log('\n\n');
           done();
         })
         .catch(done);
@@ -116,6 +110,90 @@ describe('Episode Routes', function() {
   // ---------
   // PUT tests
   // ---------
+
+  describe('PUT: /api/episode/:id', function() {
+    describe('with a valid show and episode body', () => {
+
+      before( done => {
+        new Show(exampleShow).save()
+        .then( show => {
+          this.tempShow = show;
+          return Show.findByIdAndAddEpisode(show._id, exampleEpisode);
+        })
+        .then( episode => {
+          this.tempEpisode = episode;
+          done();
+        })
+        .catch(done);
+      });
+
+      after( done => {
+        if (this.tempShow) {
+          Show.remove({})
+          .then( () => done())
+          .catch(done);
+          return;
+        }
+        done();
+      });
+
+      it('should return an updated episode', done => {
+        var updated = { title: 'updated episode title' };
+        request.put(`${url}/api/episode/${this.tempEpisode._id}`)
+        .send(updated)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.body.title).to.equal(updated.title);
+          expect(res.body._id).to.equal(this.tempEpisode._id.toString());
+          done();
+        });
+      });
+
+    });
+  });
+
+  // ------------
+  // DELETE tests
+  // ------------
+
+  describe('PUT: /api/episode/:id', function() {
+    describe('with a valid show and episode body', () => {
+
+      before( done => {
+        new Show(exampleShow).save()
+        .then( show => {
+          this.tempShow = show;
+          return Show.findByIdAndAddEpisode(show._id, exampleEpisode);
+        })
+        .then( episode => {
+          this.tempEpisode = episode;
+          done();
+        })
+        .catch(done);
+      });
+
+      after( done => {
+        if (this.tempShow) {
+          Show.remove({})
+          .then( () => done())
+          .catch(done);
+          return;
+        }
+        done();
+      });
+
+      it('should delete an episode', done => {
+        request.delete(`${url}/api/episode/${this.tempEpisode._id}`)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.status).to.equal(204);
+          expect(res.body).to.be.empty;
+          done();
+        });
+      });
+
+    });
+  });
 
   // below is my original try
   // describe('PUT: /api/show/:showID/episode', function() {

@@ -17,14 +17,38 @@ episodeRouter.post('/api/show/:showID/episode', jsonParser, function(req, res, n
   .catch(next);
 });
 
-
 episodeRouter.get('/api/episode/:id', function (req, res, next) {
-  debug('GET: /API/episode/:id');
+  debug('GET: /api/episode/:id');
 
   Episode.findById(req.params.id)
   .then( episode => res.json(episode))
   .catch( err => next(createError(404, err.message)));
 });
+
+episodeRouter.put('/api/episode/:id', jsonParser, (req, res, next) => {
+  debug('PUT /api/episode/:id');
+
+  Episode.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then(episode => res.json(episode))
+  .catch( err => next(createError(404, err.message)));
+});
+
+episodeRouter.delete('/api/episode/:id', function(req, res, next) {
+  debug('DELETE: /api/episode/:id');
+
+  Episode.findByIdAndRemove(req.params.id)
+  .then( () => res.status(204).send())
+  .catch( err => next(createError(404, err.message)));
+});
+
+// example code below
+// showRouter.delete('/api/show/:id', function(req, res, next) {
+//   debug('DELETE: /api/show/:id');
+//
+//   Show.findByIdAndRemove(req.params.id)
+//   .then( () => res.status(204).send())
+//   .catch( err => next(createError(404, err.message)));
+// });
 
 // episodeRouter.put('/api/show/:showID/episode', jsonParser, function(req, res, next) {
 //   debug('PUT: /api/show/:showID/episode');

@@ -20,7 +20,7 @@ const exampleEpisode = {
   director: 'example director'
 };
 
-describe('Show Routes', function() {
+describe('SHOW ROUTES', function() {
 
   // ----------
   // POST tests
