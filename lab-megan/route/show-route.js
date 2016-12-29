@@ -10,6 +10,7 @@ const showRouter = module.exports = new Router();
 
 showRouter.post('/api/show', jsonParser, function(req, res, next) {
   debug('POST: /api/show');
+  
   // req.body.startDate = new Date(); // don't need this
   new Show(req.body).save()
   .then( show => res.json(show))
@@ -18,6 +19,7 @@ showRouter.post('/api/show', jsonParser, function(req, res, next) {
 
 showRouter.get('/api/show/:id', function(req, res, next) {
   debug('GET: /api/show/:id');
+
   Show.findById(req.params.id)
   .populate('episodes')
   .then( show => res.json(show))
@@ -26,6 +28,7 @@ showRouter.get('/api/show/:id', function(req, res, next) {
 
 showRouter.put('/api/show/:id', jsonParser, function(req, res, next) {
   debug('PUT: /api/show/:id');
+
   Show.findByIdAndUpdate(req.params.id, req.body, { new: true })
   .then( show => res.json(show))
   .catch( err => {
@@ -36,6 +39,7 @@ showRouter.put('/api/show/:id', jsonParser, function(req, res, next) {
 
 showRouter.delete('/api/show/:id', function(req, res, next) {
   debug('DELETE: /api/show/:id');
+
   Show.findByIdAndRemove(req.params.id)
   .then( () => res.status(204).send())
   .catch( err => next(createError(404, err.message)));
