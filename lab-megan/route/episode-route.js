@@ -16,19 +16,21 @@ episodeRouter.post('/api/show/:showID/episode', jsonParser, function(req, res, n
   .catch(next);
 });
 
-episodeRouter.get('/api/show/:showID/episode', function(req, res, next) {
-  debug('GET: /api/show/:showID/episode');
 
-  Show.findById(req.params.showID, req.body)
-  .then( episode => res.json(episode))
-  .catch(next);
-});
-
-// my original try
-// episodeRouter.get('/api/episode/:id', function(req, res, next) {
-//   debug('GET: /api/episode/:id');
+// below were my original trys
+// episodeRouter.get('/api/show/:showID/episode', function(req, res, next) {
+//   debug('GET: /api/show/:showID/episode');
 //
-//   Episode.findById(req.params.id)
+//   Show.findById(req.params.showID, req.body)
+//   .then( episode => res.json(episode))
+//   .catch(next);
+// });
+//
+// episodeRouter.put('/api/show/:showID/episode', jsonParser, function(req, res, next) {
+//   debug('PUT: /api/show/:showID/episode');
+//
+//   // Show.findByIdAndUpdate(req.params.id, req.body, {new:true})
+//   Episode.findByIdAndUpdate(req.params.id, req.body, {new:true})
 //   .then( episode => res.json(episode))
 //   .catch(next);
 // });
