@@ -27,7 +27,7 @@ describe('SHOW ROUTES', function() {
   //-----------
 
   describe('POST: /api/show', function() {
-    describe('with a valid body', function() {
+    describe('with a valid body', function() { // TODO CONSIDER CHANGING THIS DESCRIBE
 
       after(done => {
         if(this.tempShow) {
@@ -48,6 +48,18 @@ describe('SHOW ROUTES', function() {
           expect (res.body.name).to.equal('example show');
           this.tempShow = res.body;
           done();
+        });
+      });
+
+      describe('with an empty body', function() {
+        it('should return 400 with no request body', done => {
+          request.post(`${url}/api/show`)
+          .send({})
+          .end((err, res) => {
+            expect (res.status).to.equal(400);
+            expect (res.body).to.be.empty;
+            done();
+          });
         });
       });
 

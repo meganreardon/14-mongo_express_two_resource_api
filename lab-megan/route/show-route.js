@@ -11,7 +11,6 @@ const showRouter = module.exports = new Router();
 showRouter.post('/api/show', jsonParser, function(req, res, next) {
   debug('POST: /api/show');
   
-  // req.body.startDate = new Date(); // don't need this
   new Show(req.body).save()
   .then( show => res.json(show))
   .catch(next);
