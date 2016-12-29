@@ -113,38 +113,6 @@ describe('Episode Routes', function() {
     });
   });
 
-  //
-  //     it('should return an episode', done => {
-  //       request.get(`${url}/api/show/${this.tempShow.id}/episode`)
-  //       .send(exampleEpisode)
-  //       .end((err, res) => {
-  //         if (err) return done(err);
-  //         expect(res.body.name).to.equal(exampleShow.name);
-  //         // NOTE: keep logs below for question to TA
-  //         // console.log('::: res.body is:', res.body);
-  //         // console.log('::: res.body.showID is:', res.body.showID);
-  //         // console.log('::: res.body._id is:', res.body._id);
-  //         // console.log('::: this.tempShow._id is:', this.tempShow._id);
-  //         // expect(res.body.showID).to.equal(this.tempShow._id.toString()); // orig from demo
-  //         expect(res.body._id).to.equal(this.tempShow._id.toString());
-  //         // NOTE: keep logs below for question to TA
-  //         // console.log('\n\n');
-  //         // console.log('::: this.tempEpisode is:', this.tempEpisode, '\n\n');
-  //         // console.log('::: this.tempEpisode._id is:', this.tempEpisode._id);
-  //         // console.log('::: exampleEpisode._id is:', exampleEpisode._id);
-  //         // console.log('::: exampleEpisode is:', exampleEpisode);
-  //         // console.log('\n\n');
-  //         // console.log('::: res.body.episodes[0] is:', res.body.episodes[0]);
-  //         // console.log('::: this.tempEpisode._id is:', this.tempEpisode._id);
-  //         // console.log('\n\n');
-  //         expect(res.body.episodes[0]).to.equal(this.tempEpisode._id.toString());
-  //         done();
-  //       });
-  //     });
-  //
-  //   });
-  // });
-
   // ---------
   // PUT tests
   // ---------
