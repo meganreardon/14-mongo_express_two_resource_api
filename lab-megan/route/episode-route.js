@@ -40,21 +40,3 @@ episodeRouter.delete('/api/episode/:id', function(req, res, next) {
   .then( () => res.status(204).send())
   .catch( err => next(createError(404, err.message)));
 });
-
-// example code below
-// showRouter.delete('/api/show/:id', function(req, res, next) {
-//   debug('DELETE: /api/show/:id');
-//
-//   Show.findByIdAndRemove(req.params.id)
-//   .then( () => res.status(204).send())
-//   .catch( err => next(createError(404, err.message)));
-// });
-
-// episodeRouter.put('/api/show/:showID/episode', jsonParser, function(req, res, next) {
-//   debug('PUT: /api/show/:showID/episode');
-//
-//   // Show.findByIdAndUpdate(req.params.id, req.body, {new:true})
-//   Episode.findByIdAndUpdate(req.params.id, req.body, {new:true})
-//   .then( episode => res.json(episode))
-//   .catch(next);
-// });
