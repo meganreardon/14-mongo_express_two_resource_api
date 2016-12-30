@@ -27,7 +27,7 @@ describe('SHOW ROUTES', function() {
   //-----------
 
   describe('POST: /api/show', function() {
-    describe('with a valid body', function() { // TODO CONSIDER CHANGING THIS DESCRIBE
+    describe('with a valid body', function() {
 
       after(done => {
         if(this.tempShow) {
@@ -173,7 +173,7 @@ describe('SHOW ROUTES', function() {
         });
       });
 
-      // TODO: this gives a 200, need to update in routes?
+      // TODO: this gives a 200 instead of a 400 no matter what form of empty body that I send, need to update in routes?
       // describe('with no body provided', () => {
       //   it('should return a 400 error', done => {
       //     request.put(`${url}/api/show/${this.tempShow._id}`)
