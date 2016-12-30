@@ -151,6 +151,18 @@ describe('SHOW ROUTES', function() {
         });
       });
 
+      describe('with correct path but incorrect id', () => {
+        it('should return a 404 error', done => {
+          var updated = { name: 'valid updated name'};
+          request.put(`${url}/api/show/0123456789`)
+          .send(updated)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+
     });
   });
 
