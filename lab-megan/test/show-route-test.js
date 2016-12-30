@@ -108,6 +108,16 @@ describe('SHOW ROUTES', function() {
         });
       });
 
+      describe('with a valid path but invalid id', () => {
+        it('should return a 404 error', done => {
+          request.get(`${url}/api/show/0123456789`)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+
     });
   });
 
@@ -162,6 +172,18 @@ describe('SHOW ROUTES', function() {
           });
         });
       });
+
+      // TODO: this gives a 200, need to update in routes?
+      // describe('with no body provided', () => {
+      //   it('should return a 400 error', done => {
+      //     request.put(`${url}/api/show/${this.tempShow._id}`)
+      //     .send({})
+      //     .end((err, res) => {
+      //       expect(res.status).to.equal(400);
+      //       done();
+      //     });
+      //   });
+      // });
 
     });
   });

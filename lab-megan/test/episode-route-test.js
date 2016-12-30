@@ -114,6 +114,16 @@ describe('EPISODE ROUTES', function() {
         });
       });
 
+      describe('with a valid path but invalid id', () => {
+        it('should return a 404 error', done => {
+          request.get(`${url}/api/episode/0123456789`)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+
     });
   });
 
