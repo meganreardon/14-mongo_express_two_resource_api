@@ -19,7 +19,6 @@ const exampleEpisode = {
 const exampleShow = {
   name: 'example show name',
   startDate: new Date('December 16, 2016 012:00:00')
-  // startDate: 'December 16, 2016 012:00:00'
 };
 
 describe('EPISODE ROUTES', function() {
@@ -57,6 +56,18 @@ describe('EPISODE ROUTES', function() {
           expect(res.body.name).to.equal(exampleEpisode.name);
           expect(res.body.showID).to.equal(this.tempShow._id.toString());
           done();
+        });
+      });
+
+      describe('with an empty body', () => {
+        it('should return a 400 error', done => {
+          request.post(`${url}/api/show/${this.tempShow.id}/episode`)
+          .send({})
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body).to.be.empty;
+            done();
+          });
         });
       });
 
@@ -98,9 +109,18 @@ describe('EPISODE ROUTES', function() {
         .end((err, res) => {
           if (err) return done(err);
           expect(res.body.title).to.equal(exampleEpisode.title);
-          // console.log('::: res.body is:', res.body);
           expect(res.body._id).to.equal(this.tempEpisode._id.toString());
           done();
+        });
+      });
+
+      describe('with a valid path but invalid id', () => {
+        it('should return a 404 error', done => {
+          request.get(`${url}/api/episode/0123456789`)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
         });
       });
 
@@ -149,6 +169,18 @@ describe('EPISODE ROUTES', function() {
         });
       });
 
+      describe('with a valid path but invalid id', () => {
+        it('should return a 404 error', done => {
+          var updated = { title: 'valid updated title' };
+          request.put(`${url}/api/episode/0123456789`)
+          .send(updated)
+          .end ((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+
     });
   });
 
@@ -194,5 +226,5 @@ describe('EPISODE ROUTES', function() {
 
     });
   });
-  
+
 });

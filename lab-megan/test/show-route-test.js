@@ -27,7 +27,7 @@ describe('SHOW ROUTES', function() {
   //-----------
 
   describe('POST: /api/show', function() {
-    describe('with a valid body', function() {
+    describe('with a valid body', function() { // TODO CONSIDER CHANGING THIS DESCRIBE
 
       after(done => {
         if(this.tempShow) {
@@ -48,6 +48,18 @@ describe('SHOW ROUTES', function() {
           expect (res.body.name).to.equal('example show');
           this.tempShow = res.body;
           done();
+        });
+      });
+
+      describe('with an empty body', function() {
+        it('should return 400 with no request body', done => {
+          request.post(`${url}/api/show`)
+          .send({})
+          .end((err, res) => {
+            expect (res.status).to.equal(400);
+            expect (res.body).to.be.empty;
+            done();
+          });
         });
       });
 
@@ -96,6 +108,16 @@ describe('SHOW ROUTES', function() {
         });
       });
 
+      describe('with a valid path but invalid id', () => {
+        it('should return a 404 error', done => {
+          request.get(`${url}/api/show/0123456789`)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+
     });
   });
 
@@ -138,6 +160,30 @@ describe('SHOW ROUTES', function() {
           done();
         });
       });
+
+      describe('with correct path but incorrect id', () => {
+        it('should return a 404 error', done => {
+          var updated = { name: 'valid updated name'};
+          request.put(`${url}/api/show/0123456789`)
+          .send(updated)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+        });
+      });
+
+      // TODO: this gives a 200, need to update in routes?
+      // describe('with no body provided', () => {
+      //   it('should return a 400 error', done => {
+      //     request.put(`${url}/api/show/${this.tempShow._id}`)
+      //     .send({})
+      //     .end((err, res) => {
+      //       expect(res.status).to.equal(400);
+      //       done();
+      //     });
+      //   });
+      // });
 
     });
   });
